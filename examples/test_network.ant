@@ -1,0 +1,386 @@
+// Transcription rate function
+// TF is the transcription factor, l_gene is the length of the gene, Km is the Michaelis constant, n is the Hill coefficient
+function transcription(k_cat, TF, l_gene, Km, n)
+    k_cat * TF^n / (l_gene * (Km + TF^n))
+end
+
+// Translation rate function
+function translation(k_cat, ribosome, l_RNA, Km, n)
+    k_cat * ribosome^n / (l_RNA * (Km + ribosome^n))
+end
+
+// Degradation function
+// d is the degradation rate
+function degradation(d, S)
+    d * S
+end
+
+model gene_network
+
+  // RNA species
+  species Gene_13_rna, Gene_14_rna, Gene_1_rna, Gene_23_rna, Gene_24_rna, Gene_25_rna, Gene_26_rna, Gene_29_rna, Gene_2_rna, Gene_37_rna, Gene_38_rna, Gene_39_rna, Gene_3_rna, Gene_40_rna, Gene_43_rna, Gene_44_rna, Gene_46_rna, Gene_47_rna, Gene_4_rna, Gene_50_rna, Gene_52_rna, Gene_53_rna, Gene_55_rna, Gene_57_rna, Gene_58_rna, Gene_5_rna, Gene_60_rna, Gene_6_rna, Gene_7_rna, TF_11_rna
+  Gene_13_rna = 0.7314272996248714
+  Gene_14_rna = 0.7314272996248714
+  Gene_1_rna = 0.7314272996248714
+  Gene_23_rna = 0.7314272996248714
+  Gene_24_rna = 0.7314272996248714
+  Gene_25_rna = 0.7314272996248714
+  Gene_26_rna = 0.7314272996248714
+  Gene_29_rna = 0.7314272996248714
+  Gene_2_rna = 0.7314272996248714
+  Gene_37_rna = 0.7314272996248714
+  Gene_38_rna = 0.7314272996248714
+  Gene_39_rna = 0.7314272996248714
+  Gene_3_rna = 0.7314272996248714
+  Gene_40_rna = 0.7314272996248714
+  Gene_43_rna = 0.7314272996248714
+  Gene_44_rna = 0.7314272996248714
+  Gene_46_rna = 0.7314272996248714
+  Gene_47_rna = 0.7314272996248714
+  Gene_4_rna = 0.7314272996248714
+  Gene_50_rna = 0.7314272996248714
+  Gene_52_rna = 0.7314272996248714
+  Gene_53_rna = 0.7314272996248714
+  Gene_55_rna = 0.7314272996248714
+  Gene_57_rna = 0.7314272996248714
+  Gene_58_rna = 0.7314272996248714
+  Gene_5_rna = 0.7314272996248714
+  Gene_60_rna = 0.7314272996248714
+  Gene_6_rna = 0.7314272996248714
+  Gene_7_rna = 0.7314272996248714
+  TF_11_rna = 0.7314272996248714
+  // Protein species
+  species TF_10_protein, TF_11_protein, TF_12_protein, TF_13_protein, TF_14_protein, TF_15_protein, TF_16_protein, TF_17_protein, TF_18_protein, TF_19_protein, TF_1_protein, TF_20_protein, TF_21_protein, TF_22_protein, TF_2_protein, TF_3_protein, TF_4_protein, TF_5_protein, TF_6_protein, TF_7_protein, TF_8_protein, TF_9_protein
+  TF_10_protein = 0.7639670755869881
+  TF_11_protein = 0.7639670755869881
+  TF_12_protein = 0.7639670755869881
+  TF_13_protein = 0.7639670755869881
+  TF_14_protein = 0.7639670755869881
+  TF_15_protein = 0.7639670755869881
+  TF_16_protein = 0.7639670755869881
+  TF_17_protein = 0.7639670755869881
+  TF_18_protein = 0.7639670755869881
+  TF_19_protein = 0.7639670755869881
+  TF_1_protein = 0.7639670755869881
+  TF_20_protein = 0.7639670755869881
+  TF_21_protein = 0.7639670755869881
+  TF_22_protein = 0.7639670755869881
+  TF_2_protein = 0.7639670755869881
+  TF_3_protein = 0.7639670755869881
+  TF_4_protein = 0.7639670755869881
+  TF_5_protein = 0.7639670755869881
+  TF_6_protein = 0.7639670755869881
+  TF_7_protein = 0.7639670755869881
+  TF_8_protein = 0.7639670755869881
+  TF_9_protein = 0.7639670755869881
+
+  // Parameters
+  Km_TF_10_protein_to_Gene_26 = 1.0
+  Km_TF_11_protein_to_Gene_37 = 1.0
+  Km_TF_11_protein_to_Gene_60 = 1.0
+  Km_TF_12_protein_to_Gene_37 = 1.0
+  Km_TF_12_protein_to_Gene_38 = 1.0
+  Km_TF_12_protein_to_Gene_39 = 1.0
+  Km_TF_13_protein_to_Gene_38 = 1.0
+  Km_TF_13_protein_to_Gene_39 = 1.0
+  Km_TF_14_protein_to_Gene_38 = 1.0
+  Km_TF_14_protein_to_Gene_39 = 1.0
+  Km_TF_15_protein_to_Gene_43 = 1.0
+  Km_TF_15_protein_to_Gene_44 = 1.0
+  Km_TF_16_protein_to_Gene_43 = 1.0
+  Km_TF_16_protein_to_Gene_44 = 1.0
+  Km_TF_17_protein_to_Gene_46 = 1.0
+  Km_TF_17_protein_to_Gene_47 = 1.0
+  Km_TF_18_protein_to_Gene_50 = 1.0
+  Km_TF_18_protein_to_Gene_52 = 1.0
+  Km_TF_19_protein_to_Gene_53 = 1.0
+  Km_TF_19_protein_to_Gene_55 = 1.0
+  Km_TF_1_protein_to_Gene_1 = 1.0
+  Km_TF_1_protein_to_Gene_6 = 1.0
+  Km_TF_1_protein_to_TF_11 = 1.0
+  Km_TF_20_protein_to_Gene_55 = 1.0
+  Km_TF_20_protein_to_Gene_57 = 1.0
+  Km_TF_20_protein_to_Gene_58 = 1.0
+  Km_TF_21_protein_to_Gene_57 = 1.0
+  Km_TF_21_protein_to_Gene_58 = 1.0
+  Km_TF_22_protein_to_Gene_60 = 1.0
+  Km_TF_2_protein_to_Gene_2 = 1.0
+  Km_TF_2_protein_to_Gene_23 = 1.0
+  Km_TF_2_protein_to_Gene_25 = 1.0
+  Km_TF_3_protein_to_Gene_2 = 1.0
+  Km_TF_3_protein_to_Gene_3 = 1.0
+  Km_TF_4_protein_to_Gene_3 = 1.0
+  Km_TF_4_protein_to_Gene_7 = 1.0
+  Km_TF_5_protein_to_Gene_13 = 1.0
+  Km_TF_5_protein_to_Gene_3 = 1.0
+  Km_TF_5_protein_to_Gene_4 = 1.0
+  Km_TF_6_protein_to_Gene_13 = 1.0
+  Km_TF_6_protein_to_Gene_14 = 1.0
+  Km_TF_6_protein_to_Gene_5 = 1.0
+  Km_TF_7_protein_to_Gene_5 = 1.0
+  Km_TF_7_protein_to_Gene_6 = 1.0
+  Km_TF_8_protein_to_Gene_40 = 1.0
+  Km_TF_8_protein_to_Gene_6 = 1.0
+  Km_TF_9_protein_to_Gene_24 = 1.0
+  Km_TF_9_protein_to_Gene_29 = 1.0
+  d_Gene_13_rna = 0.001
+  d_Gene_14_rna = 0.001
+  d_Gene_1_rna = 0.001
+  d_Gene_23_rna = 0.001
+  d_Gene_24_rna = 0.001
+  d_Gene_25_rna = 0.001
+  d_Gene_26_rna = 0.001
+  d_Gene_29_rna = 0.001
+  d_Gene_2_rna = 0.001
+  d_Gene_37_rna = 0.001
+  d_Gene_38_rna = 0.001
+  d_Gene_39_rna = 0.001
+  d_Gene_3_rna = 0.001
+  d_Gene_40_rna = 0.001
+  d_Gene_43_rna = 0.001
+  d_Gene_44_rna = 0.001
+  d_Gene_46_rna = 0.001
+  d_Gene_47_rna = 0.001
+  d_Gene_4_rna = 0.001
+  d_Gene_50_rna = 0.001
+  d_Gene_52_rna = 0.001
+  d_Gene_53_rna = 0.001
+  d_Gene_55_rna = 0.001
+  d_Gene_57_rna = 0.001
+  d_Gene_58_rna = 0.001
+  d_Gene_5_rna = 0.001
+  d_Gene_60_rna = 0.001
+  d_Gene_6_rna = 0.001
+  d_Gene_7_rna = 0.001
+  d_TF_11_rna = 0.001
+  kcat_TF_10_protein_to_Gene_26 = 1.0
+  kcat_TF_11_protein_to_Gene_37 = 1.0
+  kcat_TF_11_protein_to_Gene_60 = 1.0
+  kcat_TF_12_protein_to_Gene_37 = 1.0
+  kcat_TF_12_protein_to_Gene_38 = 1.0
+  kcat_TF_12_protein_to_Gene_39 = 1.0
+  kcat_TF_13_protein_to_Gene_38 = 1.0
+  kcat_TF_13_protein_to_Gene_39 = 1.0
+  kcat_TF_14_protein_to_Gene_38 = 1.0
+  kcat_TF_14_protein_to_Gene_39 = 1.0
+  kcat_TF_15_protein_to_Gene_43 = 1.0
+  kcat_TF_15_protein_to_Gene_44 = 1.0
+  kcat_TF_16_protein_to_Gene_43 = 1.0
+  kcat_TF_16_protein_to_Gene_44 = 1.0
+  kcat_TF_17_protein_to_Gene_46 = 1.0
+  kcat_TF_17_protein_to_Gene_47 = 1.0
+  kcat_TF_18_protein_to_Gene_50 = 1.0
+  kcat_TF_18_protein_to_Gene_52 = 1.0
+  kcat_TF_19_protein_to_Gene_53 = 1.0
+  kcat_TF_19_protein_to_Gene_55 = 1.0
+  kcat_TF_1_protein_to_Gene_1 = 1.0
+  kcat_TF_1_protein_to_Gene_6 = 1.0
+  kcat_TF_1_protein_to_TF_11 = 1.0
+  kcat_TF_20_protein_to_Gene_55 = 1.0
+  kcat_TF_20_protein_to_Gene_57 = 1.0
+  kcat_TF_20_protein_to_Gene_58 = 1.0
+  kcat_TF_21_protein_to_Gene_57 = 1.0
+  kcat_TF_21_protein_to_Gene_58 = 1.0
+  kcat_TF_22_protein_to_Gene_60 = 1.0
+  kcat_TF_2_protein_to_Gene_2 = 1.0
+  kcat_TF_2_protein_to_Gene_23 = 1.0
+  kcat_TF_2_protein_to_Gene_25 = 1.0
+  kcat_TF_3_protein_to_Gene_2 = 1.0
+  kcat_TF_3_protein_to_Gene_3 = 1.0
+  kcat_TF_4_protein_to_Gene_3 = 1.0
+  kcat_TF_4_protein_to_Gene_7 = 1.0
+  kcat_TF_5_protein_to_Gene_13 = 1.0
+  kcat_TF_5_protein_to_Gene_3 = 1.0
+  kcat_TF_5_protein_to_Gene_4 = 1.0
+  kcat_TF_6_protein_to_Gene_13 = 1.0
+  kcat_TF_6_protein_to_Gene_14 = 1.0
+  kcat_TF_6_protein_to_Gene_5 = 1.0
+  kcat_TF_7_protein_to_Gene_5 = 1.0
+  kcat_TF_7_protein_to_Gene_6 = 1.0
+  kcat_TF_8_protein_to_Gene_40 = 1.0
+  kcat_TF_8_protein_to_Gene_6 = 1.0
+  kcat_TF_9_protein_to_Gene_24 = 1.0
+  kcat_TF_9_protein_to_Gene_29 = 1.0
+  lgene_Gene_1 = 1000
+  lgene_Gene_13 = 1000
+  lgene_Gene_14 = 1000
+  lgene_Gene_2 = 1000
+  lgene_Gene_23 = 1000
+  lgene_Gene_24 = 1000
+  lgene_Gene_25 = 1000
+  lgene_Gene_26 = 1000
+  lgene_Gene_29 = 1000
+  lgene_Gene_3 = 1000
+  lgene_Gene_37 = 1000
+  lgene_Gene_38 = 1000
+  lgene_Gene_39 = 1000
+  lgene_Gene_4 = 1000
+  lgene_Gene_40 = 1000
+  lgene_Gene_43 = 1000
+  lgene_Gene_44 = 1000
+  lgene_Gene_46 = 1000
+  lgene_Gene_47 = 1000
+  lgene_Gene_5 = 1000
+  lgene_Gene_50 = 1000
+  lgene_Gene_52 = 1000
+  lgene_Gene_53 = 1000
+  lgene_Gene_55 = 1000
+  lgene_Gene_57 = 1000
+  lgene_Gene_58 = 1000
+  lgene_Gene_6 = 1000
+  lgene_Gene_60 = 1000
+  lgene_Gene_7 = 1000
+  lgene_TF_11 = 1000
+  lrna_TF_11 = 632.3
+  n_TF_10_protein_to_Gene_26 = 2
+  n_TF_11_protein_to_Gene_37 = 2
+  n_TF_11_protein_to_Gene_60 = 2
+  n_TF_12_protein_to_Gene_37 = 2
+  n_TF_12_protein_to_Gene_38 = 2
+  n_TF_12_protein_to_Gene_39 = 2
+  n_TF_13_protein_to_Gene_38 = 2
+  n_TF_13_protein_to_Gene_39 = 2
+  n_TF_14_protein_to_Gene_38 = 2
+  n_TF_14_protein_to_Gene_39 = 2
+  n_TF_15_protein_to_Gene_43 = 2
+  n_TF_15_protein_to_Gene_44 = 2
+  n_TF_16_protein_to_Gene_43 = 2
+  n_TF_16_protein_to_Gene_44 = 2
+  n_TF_17_protein_to_Gene_46 = 2
+  n_TF_17_protein_to_Gene_47 = 2
+  n_TF_18_protein_to_Gene_50 = 2
+  n_TF_18_protein_to_Gene_52 = 2
+  n_TF_19_protein_to_Gene_53 = 2
+  n_TF_19_protein_to_Gene_55 = 2
+  n_TF_1_protein_to_Gene_1 = 2
+  n_TF_1_protein_to_Gene_6 = 2
+  n_TF_1_protein_to_TF_11 = 2
+  n_TF_20_protein_to_Gene_55 = 2
+  n_TF_20_protein_to_Gene_57 = 2
+  n_TF_20_protein_to_Gene_58 = 2
+  n_TF_21_protein_to_Gene_57 = 2
+  n_TF_21_protein_to_Gene_58 = 2
+  n_TF_22_protein_to_Gene_60 = 2
+  n_TF_2_protein_to_Gene_2 = 2
+  n_TF_2_protein_to_Gene_23 = 2
+  n_TF_2_protein_to_Gene_25 = 2
+  n_TF_3_protein_to_Gene_2 = 2
+  n_TF_3_protein_to_Gene_3 = 2
+  n_TF_4_protein_to_Gene_3 = 2
+  n_TF_4_protein_to_Gene_7 = 2
+  n_TF_5_protein_to_Gene_13 = 2
+  n_TF_5_protein_to_Gene_3 = 2
+  n_TF_5_protein_to_Gene_4 = 2
+  n_TF_6_protein_to_Gene_13 = 2
+  n_TF_6_protein_to_Gene_14 = 2
+  n_TF_6_protein_to_Gene_5 = 2
+  n_TF_7_protein_to_Gene_5 = 2
+  n_TF_7_protein_to_Gene_6 = 2
+  n_TF_8_protein_to_Gene_40 = 2
+  n_TF_8_protein_to_Gene_6 = 2
+  n_TF_9_protein_to_Gene_24 = 2
+  n_TF_9_protein_to_Gene_29 = 2
+
+  // Transcription reactions
+  R1_tranc: -> Gene_1_rna; transcription(kcat_TF_1_protein_to_Gene_1, TF_1_protein, lgene_Gene_1, Km_TF_1_protein_to_Gene_1, n_TF_1_protein_to_Gene_1)
+  R1_degr: Gene_1_rna -> ; degradation(d_Gene_1_rna, Gene_1_rna)
+  R2_tranc: -> Gene_2_rna; transcription(kcat_TF_2_protein_to_Gene_2, TF_2_protein, lgene_Gene_2, Km_TF_2_protein_to_Gene_2, n_TF_2_protein_to_Gene_2)
+  R2_degr: Gene_2_rna -> ; degradation(d_Gene_2_rna, Gene_2_rna)
+  R3_tranc: -> Gene_2_rna; transcription(kcat_TF_3_protein_to_Gene_2, TF_3_protein, lgene_Gene_2, Km_TF_3_protein_to_Gene_2, n_TF_3_protein_to_Gene_2)
+  R3_degr: Gene_2_rna -> ; degradation(d_Gene_2_rna, Gene_2_rna)
+  R4_tranc: -> Gene_3_rna; transcription(kcat_TF_3_protein_to_Gene_3, TF_3_protein, lgene_Gene_3, Km_TF_3_protein_to_Gene_3, n_TF_3_protein_to_Gene_3)
+  R4_degr: Gene_3_rna -> ; degradation(d_Gene_3_rna, Gene_3_rna)
+  R5_tranc: -> Gene_3_rna; transcription(kcat_TF_4_protein_to_Gene_3, TF_4_protein, lgene_Gene_3, Km_TF_4_protein_to_Gene_3, n_TF_4_protein_to_Gene_3)
+  R5_degr: Gene_3_rna -> ; degradation(d_Gene_3_rna, Gene_3_rna)
+  R6_tranc: -> Gene_3_rna; transcription(kcat_TF_5_protein_to_Gene_3, TF_5_protein, lgene_Gene_3, Km_TF_5_protein_to_Gene_3, n_TF_5_protein_to_Gene_3)
+  R6_degr: Gene_3_rna -> ; degradation(d_Gene_3_rna, Gene_3_rna)
+  R7_tranc: -> Gene_4_rna; transcription(kcat_TF_5_protein_to_Gene_4, TF_5_protein, lgene_Gene_4, Km_TF_5_protein_to_Gene_4, n_TF_5_protein_to_Gene_4)
+  R7_degr: Gene_4_rna -> ; degradation(d_Gene_4_rna, Gene_4_rna)
+  R8_tranc: -> Gene_5_rna; transcription(kcat_TF_6_protein_to_Gene_5, TF_6_protein, lgene_Gene_5, Km_TF_6_protein_to_Gene_5, n_TF_6_protein_to_Gene_5)
+  R8_degr: Gene_5_rna -> ; degradation(d_Gene_5_rna, Gene_5_rna)
+  R9_tranc: -> Gene_5_rna; transcription(kcat_TF_7_protein_to_Gene_5, TF_7_protein, lgene_Gene_5, Km_TF_7_protein_to_Gene_5, n_TF_7_protein_to_Gene_5)
+  R9_degr: Gene_5_rna -> ; degradation(d_Gene_5_rna, Gene_5_rna)
+  R10_tranc: -> Gene_6_rna; transcription(kcat_TF_1_protein_to_Gene_6, TF_1_protein, lgene_Gene_6, Km_TF_1_protein_to_Gene_6, n_TF_1_protein_to_Gene_6)
+  R10_degr: Gene_6_rna -> ; degradation(d_Gene_6_rna, Gene_6_rna)
+  R11_tranc: -> Gene_6_rna; transcription(kcat_TF_7_protein_to_Gene_6, TF_7_protein, lgene_Gene_6, Km_TF_7_protein_to_Gene_6, n_TF_7_protein_to_Gene_6)
+  R11_degr: Gene_6_rna -> ; degradation(d_Gene_6_rna, Gene_6_rna)
+  R12_tranc: -> Gene_6_rna; transcription(kcat_TF_8_protein_to_Gene_6, TF_8_protein, lgene_Gene_6, Km_TF_8_protein_to_Gene_6, n_TF_8_protein_to_Gene_6)
+  R12_degr: Gene_6_rna -> ; degradation(d_Gene_6_rna, Gene_6_rna)
+  R13_tranc: -> Gene_7_rna; transcription(kcat_TF_4_protein_to_Gene_7, TF_4_protein, lgene_Gene_7, Km_TF_4_protein_to_Gene_7, n_TF_4_protein_to_Gene_7)
+  R13_degr: Gene_7_rna -> ; degradation(d_Gene_7_rna, Gene_7_rna)
+  R19_tranc: -> Gene_13_rna; transcription(kcat_TF_6_protein_to_Gene_13, TF_6_protein, lgene_Gene_13, Km_TF_6_protein_to_Gene_13, n_TF_6_protein_to_Gene_13)
+  R19_degr: Gene_13_rna -> ; degradation(d_Gene_13_rna, Gene_13_rna)
+  R20_tranc: -> Gene_13_rna; transcription(kcat_TF_5_protein_to_Gene_13, TF_5_protein, lgene_Gene_13, Km_TF_5_protein_to_Gene_13, n_TF_5_protein_to_Gene_13)
+  R20_degr: Gene_13_rna -> ; degradation(d_Gene_13_rna, Gene_13_rna)
+  R21_tranc: -> Gene_14_rna; transcription(kcat_TF_6_protein_to_Gene_14, TF_6_protein, lgene_Gene_14, Km_TF_6_protein_to_Gene_14, n_TF_6_protein_to_Gene_14)
+  R21_degr: Gene_14_rna -> ; degradation(d_Gene_14_rna, Gene_14_rna)
+  R30_tranc: -> Gene_23_rna; transcription(kcat_TF_2_protein_to_Gene_23, TF_2_protein, lgene_Gene_23, Km_TF_2_protein_to_Gene_23, n_TF_2_protein_to_Gene_23)
+  R30_degr: Gene_23_rna -> ; degradation(d_Gene_23_rna, Gene_23_rna)
+  R32_tranc: -> Gene_25_rna; transcription(kcat_TF_2_protein_to_Gene_25, TF_2_protein, lgene_Gene_25, Km_TF_2_protein_to_Gene_25, n_TF_2_protein_to_Gene_25)
+  R32_degr: Gene_25_rna -> ; degradation(d_Gene_25_rna, Gene_25_rna)
+  R34_tranc: -> Gene_24_rna; transcription(kcat_TF_9_protein_to_Gene_24, TF_9_protein, lgene_Gene_24, Km_TF_9_protein_to_Gene_24, n_TF_9_protein_to_Gene_24)
+  R34_degr: Gene_24_rna -> ; degradation(d_Gene_24_rna, Gene_24_rna)
+  R36_tranc: -> Gene_26_rna; transcription(kcat_TF_10_protein_to_Gene_26, TF_10_protein, lgene_Gene_26, Km_TF_10_protein_to_Gene_26, n_TF_10_protein_to_Gene_26)
+  R36_degr: Gene_26_rna -> ; degradation(d_Gene_26_rna, Gene_26_rna)
+  R38_tranc: -> Gene_29_rna; transcription(kcat_TF_9_protein_to_Gene_29, TF_9_protein, lgene_Gene_29, Km_TF_9_protein_to_Gene_29, n_TF_9_protein_to_Gene_29)
+  R38_degr: Gene_29_rna -> ; degradation(d_Gene_29_rna, Gene_29_rna)
+  R48_tranc: -> TF_11_rna; transcription(kcat_TF_1_protein_to_TF_11, TF_1_protein, lgene_TF_11, Km_TF_1_protein_to_TF_11, n_TF_1_protein_to_TF_11)
+  R48_degr: TF_11_rna -> ; degradation(d_TF_11_rna, TF_11_rna)
+  R49_tranc: -> Gene_37_rna; transcription(kcat_TF_11_protein_to_Gene_37, TF_11_protein, lgene_Gene_37, Km_TF_11_protein_to_Gene_37, n_TF_11_protein_to_Gene_37)
+  R49_degr: Gene_37_rna -> ; degradation(d_Gene_37_rna, Gene_37_rna)
+  R50_tranc: -> Gene_37_rna; transcription(kcat_TF_12_protein_to_Gene_37, TF_12_protein, lgene_Gene_37, Km_TF_12_protein_to_Gene_37, n_TF_12_protein_to_Gene_37)
+  R50_degr: Gene_37_rna -> ; degradation(d_Gene_37_rna, Gene_37_rna)
+  R51_tranc: -> Gene_38_rna; transcription(kcat_TF_13_protein_to_Gene_38, TF_13_protein, lgene_Gene_38, Km_TF_13_protein_to_Gene_38, n_TF_13_protein_to_Gene_38)
+  R51_degr: Gene_38_rna -> ; degradation(d_Gene_38_rna, Gene_38_rna)
+  R52_tranc: -> Gene_38_rna; transcription(kcat_TF_14_protein_to_Gene_38, TF_14_protein, lgene_Gene_38, Km_TF_14_protein_to_Gene_38, n_TF_14_protein_to_Gene_38)
+  R52_degr: Gene_38_rna -> ; degradation(d_Gene_38_rna, Gene_38_rna)
+  R53_tranc: -> Gene_38_rna; transcription(kcat_TF_12_protein_to_Gene_38, TF_12_protein, lgene_Gene_38, Km_TF_12_protein_to_Gene_38, n_TF_12_protein_to_Gene_38)
+  R53_degr: Gene_38_rna -> ; degradation(d_Gene_38_rna, Gene_38_rna)
+  R54_tranc: -> Gene_39_rna; transcription(kcat_TF_12_protein_to_Gene_39, TF_12_protein, lgene_Gene_39, Km_TF_12_protein_to_Gene_39, n_TF_12_protein_to_Gene_39)
+  R54_degr: Gene_39_rna -> ; degradation(d_Gene_39_rna, Gene_39_rna)
+  R55_tranc: -> Gene_39_rna; transcription(kcat_TF_13_protein_to_Gene_39, TF_13_protein, lgene_Gene_39, Km_TF_13_protein_to_Gene_39, n_TF_13_protein_to_Gene_39)
+  R55_degr: Gene_39_rna -> ; degradation(d_Gene_39_rna, Gene_39_rna)
+  R56_tranc: -> Gene_39_rna; transcription(kcat_TF_14_protein_to_Gene_39, TF_14_protein, lgene_Gene_39, Km_TF_14_protein_to_Gene_39, n_TF_14_protein_to_Gene_39)
+  R56_degr: Gene_39_rna -> ; degradation(d_Gene_39_rna, Gene_39_rna)
+  R57_tranc: -> Gene_40_rna; transcription(kcat_TF_8_protein_to_Gene_40, TF_8_protein, lgene_Gene_40, Km_TF_8_protein_to_Gene_40, n_TF_8_protein_to_Gene_40)
+  R57_degr: Gene_40_rna -> ; degradation(d_Gene_40_rna, Gene_40_rna)
+  R60_tranc: -> Gene_43_rna; transcription(kcat_TF_15_protein_to_Gene_43, TF_15_protein, lgene_Gene_43, Km_TF_15_protein_to_Gene_43, n_TF_15_protein_to_Gene_43)
+  R60_degr: Gene_43_rna -> ; degradation(d_Gene_43_rna, Gene_43_rna)
+  R61_tranc: -> Gene_43_rna; transcription(kcat_TF_16_protein_to_Gene_43, TF_16_protein, lgene_Gene_43, Km_TF_16_protein_to_Gene_43, n_TF_16_protein_to_Gene_43)
+  R61_degr: Gene_43_rna -> ; degradation(d_Gene_43_rna, Gene_43_rna)
+  R63_tranc: -> Gene_44_rna; transcription(kcat_TF_15_protein_to_Gene_44, TF_15_protein, lgene_Gene_44, Km_TF_15_protein_to_Gene_44, n_TF_15_protein_to_Gene_44)
+  R63_degr: Gene_44_rna -> ; degradation(d_Gene_44_rna, Gene_44_rna)
+  R64_tranc: -> Gene_44_rna; transcription(kcat_TF_16_protein_to_Gene_44, TF_16_protein, lgene_Gene_44, Km_TF_16_protein_to_Gene_44, n_TF_16_protein_to_Gene_44)
+  R64_degr: Gene_44_rna -> ; degradation(d_Gene_44_rna, Gene_44_rna)
+  R66_tranc: -> Gene_46_rna; transcription(kcat_TF_17_protein_to_Gene_46, TF_17_protein, lgene_Gene_46, Km_TF_17_protein_to_Gene_46, n_TF_17_protein_to_Gene_46)
+  R66_degr: Gene_46_rna -> ; degradation(d_Gene_46_rna, Gene_46_rna)
+  R69_tranc: -> Gene_47_rna; transcription(kcat_TF_17_protein_to_Gene_47, TF_17_protein, lgene_Gene_47, Km_TF_17_protein_to_Gene_47, n_TF_17_protein_to_Gene_47)
+  R69_degr: Gene_47_rna -> ; degradation(d_Gene_47_rna, Gene_47_rna)
+  R72_tranc: -> Gene_50_rna; transcription(kcat_TF_18_protein_to_Gene_50, TF_18_protein, lgene_Gene_50, Km_TF_18_protein_to_Gene_50, n_TF_18_protein_to_Gene_50)
+  R72_degr: Gene_50_rna -> ; degradation(d_Gene_50_rna, Gene_50_rna)
+  R76_tranc: -> Gene_52_rna; transcription(kcat_TF_18_protein_to_Gene_52, TF_18_protein, lgene_Gene_52, Km_TF_18_protein_to_Gene_52, n_TF_18_protein_to_Gene_52)
+  R76_degr: Gene_52_rna -> ; degradation(d_Gene_52_rna, Gene_52_rna)
+  R79_tranc: -> Gene_53_rna; transcription(kcat_TF_19_protein_to_Gene_53, TF_19_protein, lgene_Gene_53, Km_TF_19_protein_to_Gene_53, n_TF_19_protein_to_Gene_53)
+  R79_degr: Gene_53_rna -> ; degradation(d_Gene_53_rna, Gene_53_rna)
+  R81_tranc: -> Gene_55_rna; transcription(kcat_TF_19_protein_to_Gene_55, TF_19_protein, lgene_Gene_55, Km_TF_19_protein_to_Gene_55, n_TF_19_protein_to_Gene_55)
+  R81_degr: Gene_55_rna -> ; degradation(d_Gene_55_rna, Gene_55_rna)
+  R83_tranc: -> Gene_55_rna; transcription(kcat_TF_20_protein_to_Gene_55, TF_20_protein, lgene_Gene_55, Km_TF_20_protein_to_Gene_55, n_TF_20_protein_to_Gene_55)
+  R83_degr: Gene_55_rna -> ; degradation(d_Gene_55_rna, Gene_55_rna)
+  R84_tranc: -> Gene_57_rna; transcription(kcat_TF_20_protein_to_Gene_57, TF_20_protein, lgene_Gene_57, Km_TF_20_protein_to_Gene_57, n_TF_20_protein_to_Gene_57)
+  R84_degr: Gene_57_rna -> ; degradation(d_Gene_57_rna, Gene_57_rna)
+  R85_tranc: -> Gene_57_rna; transcription(kcat_TF_21_protein_to_Gene_57, TF_21_protein, lgene_Gene_57, Km_TF_21_protein_to_Gene_57, n_TF_21_protein_to_Gene_57)
+  R85_degr: Gene_57_rna -> ; degradation(d_Gene_57_rna, Gene_57_rna)
+  R87_tranc: -> Gene_58_rna; transcription(kcat_TF_20_protein_to_Gene_58, TF_20_protein, lgene_Gene_58, Km_TF_20_protein_to_Gene_58, n_TF_20_protein_to_Gene_58)
+  R87_degr: Gene_58_rna -> ; degradation(d_Gene_58_rna, Gene_58_rna)
+  R88_tranc: -> Gene_58_rna; transcription(kcat_TF_21_protein_to_Gene_58, TF_21_protein, lgene_Gene_58, Km_TF_21_protein_to_Gene_58, n_TF_21_protein_to_Gene_58)
+  R88_degr: Gene_58_rna -> ; degradation(d_Gene_58_rna, Gene_58_rna)
+  R91_tranc: -> Gene_60_rna; transcription(kcat_TF_22_protein_to_Gene_60, TF_22_protein, lgene_Gene_60, Km_TF_22_protein_to_Gene_60, n_TF_22_protein_to_Gene_60)
+  R91_degr: Gene_60_rna -> ; degradation(d_Gene_60_rna, Gene_60_rna)
+  R92_tranc: -> Gene_60_rna; transcription(kcat_TF_11_protein_to_Gene_60, TF_11_protein, lgene_Gene_60, Km_TF_11_protein_to_Gene_60, n_TF_11_protein_to_Gene_60)
+  R92_degr: Gene_60_rna -> ; degradation(d_Gene_60_rna, Gene_60_rna)
+  R93_transl: -> Gene_60_rna; translation(3, 1.0, lrna_TF_11, 0.1, 1)
+  R93_degr: Gene_60_rna -> ; degradation(d_Gene_60_rna, TF_11_protein)
+E1: at time >= 120: TF_3_protein = 10;  # Outside induction of TF_3
+
+
+end
